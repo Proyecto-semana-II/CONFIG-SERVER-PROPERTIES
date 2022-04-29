@@ -15,8 +15,8 @@ spring:
       - id: ms-parameter
         uri: lb://ms-parameter
         predicates:
-          - Path=/**
+          - Path=/parameter
       - id: ms-person
         uri: lb://ms-person
         predicates:
-          - Path=/**
+          - Path=/api
