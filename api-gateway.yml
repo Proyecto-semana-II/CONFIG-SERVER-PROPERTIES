@@ -20,3 +20,7 @@ spring:
         uri: lb://ms-person
         predicates:
           - Path=/api/**
+      - id: ms-client
+        uri: lb://ms-client
+        predicates:
+          - Path=/api/**
