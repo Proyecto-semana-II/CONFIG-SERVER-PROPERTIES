@@ -16,6 +16,8 @@ spring:
         uri: lb://ms-parameter
         predicates:
           - Path=/parameter/**
+        filters:
+          - CircuitBreaker=parameter
       - id: ms-person
         uri: lb://ms-person
         predicates:
@@ -24,3 +26,24 @@ spring:
         uri: lb://ms-client
         predicates:
           - Path=/api/**
+
+resilience4j:
+  circuitbreaker:
+    configs:
+      defecto:
+        sliding-window-size: 6
+        failure-rate-threshold: 50
+        wait-duration-in-open-state: 20s
+        permitted-number-of-calls-in-half-open-state: 4
+        slow-call-rate-threshold: 50
+        slow-call-duration-threshold: 2s
+    instances:
+      parameter:
+        base-config: defecto
+  timelimiter:
+    configs:
+      defecto:
+        timeout-duration: 2s
+    instances:
+      parameter:
+        base-config: defecto
